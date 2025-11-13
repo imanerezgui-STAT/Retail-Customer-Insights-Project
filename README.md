@@ -87,3 +87,63 @@ customer_shopping_behavior_data_dictionary.csv → schema overview.
 Key Outcome
 
 The dataset is now consistent, analysis-ready, and suitable for exploratory analysis, KPI computation, and dashboard integration in Power BI or Python visualization libraries.
+
+
+
+
+PostgreSQL Analysis Workflow
+1. Database Setup
+
+Created PostgreSQL database: retail_data
+
+Imported cleaned CSV into table: sales
+
+Connected Jupyter Notebook ↔ PostgreSQL using SQLAlchemy + psycopg2
+
+2. SQL Analysis Performed
+
+The analysis was fully executed inside PostgreSQL and covers:
+
+Revenue & transaction volume
+
+Average basket value
+
+Category revenue distribution
+
+Customer segmentation (attribute-based)
+
+Gender performance
+
+Geographic revenue mapping
+
+Seasonal performance trends
+
+3. Key SQL Outputs
+
+Total Revenue: 233,081 USD
+
+ABV: 59.76 USD
+
+Top Categories: Clothing (104K), Accessories (74K)
+
+Gender split: Male 68% of revenue
+
+Top Locations: Montana, Illinois, California
+
+Peak Season: Fall
+
+4. Files Included
+
+PostgreSQL SQL scripts (queries)
+
+Cleaned dataset imported into the database
+
+Final business report (PDF)
+
+5. Tools
+
+PostgreSQL
+
+SQL
+
+Python (connection + CSV import)
