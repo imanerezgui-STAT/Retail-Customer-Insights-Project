@@ -1,149 +1,436 @@
-# Retail Customer Insights Project
+\# 📊 Retail Customer Insights \& Sales Performance Analytics
 
-## Introduction
+End-to-End Data Analysis | Python · PostgreSQL · Power BI
 
 
-## Data Dictionary
-| Variable | Business Meaning |
-|-----------|------------------|
-| Customer ID | Unique customer identifier used to link transactions and compute KPIs (frequency, retention, CLV, RFM). |
-| Age | Customer age used for demographic segmentation, cohort analysis, and targeting. |
-| Gender | Customer gender for segmentation and personalized marketing analysis. |
-| Item Purchased | Product/SKU purchased; used for product-level trends, attachment, and inventory insights. |
-| Category | High-level product grouping for assortment optimization, margin mix, and performance tracking. |
-| Purchase Amount (USD) | Monetary value of the transaction (net of discounts if available); core input for revenue and ABV. |
-| Location | Store/mall/city of purchase; used for geographic sales analysis and logistics planning. |
-| Size | Product size variant; supports demand forecasting by variant and inventory allocation. |
-| Color | Product color attribute; used for style preference and seasonal assortment analysis. |
-| Season | Season of purchase (e.g., Winter, Summer); used for seasonality and promotional timing. |
-| Review Rating | Post-purchase satisfaction score (1–5); proxy for product quality and CX. |
-| Subscription Status | Customer enrollment in loyalty/membership; indicator for retention propensity and recurring value. |
-| Shipping Type | Fulfillment method (e.g., Standard, Express, Free); affects delivery cost, SLA, and conversion. |
-| Discount Applied | Indicates presence/amount of discount on the transaction; measures promotion effectiveness and margin impact. |
-| Promo Code Used | Flag/code for applied promotion; used to attribute campaign performance and price sensitivity. |
-| Previous Purchases | Count of historical purchases prior to this transaction; input to RFM/loyalty scoring. |
-| Payment Method | Tender type (e.g., Cash, Card, Wallet); informs checkout optimization and payment costs. |
-| Frequency of Purchases | Shopping cadence (e.g., Weekly, Monthly) or derived frequency metric; measures engagement level. |
 
+This project delivers a complete analytics workflow on retail customer behavior using real-world style transactional data. It demonstrates the full pipeline required in modern data roles — from data cleaning and preparation, to SQL-based analytics, to interactive BI reporting.
 
 
-🧹 Data Cleaning and Preparation – Customer Shopping Behavior Analysis
-Objective
 
-Prepare the raw dataset for analysis by correcting formats, standardizing column names, and handling missing or inconsistent values. The goal is to ensure data quality and analytical reliability before KPI design and dashboarding.
+The analysis provides actionable insights on customer segments, purchase behavior, revenue drivers, and geographic patterns to support retail business decision-making.
 
-Steps Performed
 
-Column Standardization
 
-Converted all column names to lowercase snake_case.
+\## 📁 Project Structure
 
-Removed extra spaces and special characters for compatibility across SQL, Python, and BI tools.
+Retail-Customer-Insights-Project/
 
-Data Type Correction
+│
 
-Automatically converted columns that are mostly numeric (≥90 % numeric values) into numeric data types.
+├── data/
 
-Protected identifier columns (e.g., customer_id) from conversion to preserve text formatting.
+│     └── retail\_customer\_behavior\_raw.csv
 
-Parsed any date/time fields detected by name.
+│
 
-Categorical Cleaning
+├── python/
 
-Trimmed spaces and normalized yes/no values into consistent boolean (True/False) format.
+│     └── Retail\_Data\_Cleaning\_and\_Preparation.ipynb
 
-Retained categorical attributes (e.g., region, color, size) as text.
+│
 
-Duplicate Removal
+├── sql/
 
-Detected and removed exact duplicate rows to avoid double counting in KPIs.
+│     └── Retail\_Customer\_Insights\_SQL\_Analysis.sql
 
-Missing-Value Handling (Imputation Policy)
+│
 
-Default mode: keep missing values (IMPUTE=False) for transparency and manual review.
+├── powerbi/
 
-Optional mode (IMPUTE=True):
+│     └── Retail\_Customer\_Insights\_Dashboard.pbix
 
-Numeric → median
+│
 
-Date/time → most frequent date
+├── reports/
 
-Categorical → mode or “Unknown”
+│     ├── Retail\_Customer\_Insights\_PostgreSQL\_Report.pdf
 
-Outlier Detection (Not Removal)
+│     └── Final\_Project\_Report.pdf   ← (to be added)
 
-Calculated z-scores for numeric columns and flagged records where |z| > 4 for further investigation.
+│
 
-Data Dictionary Creation
+├── images/
 
-Generated a CSV summary with each column’s type, non-null count, and number of unique values.
+│     ├── dashboard\_main.png
 
-Outputs Produced
+│     ├── kpi\_section.png
 
-customer_shopping_behavior_clean.csv → cleaned dataset ready for analysis.
+│     ├── category\_chart.png
 
-customer_shopping_behavior_data_dictionary.csv → schema overview.
+│     ├── gender\_chart.png
 
-Key Outcome
+│     ├── seasonality\_chart.png
 
-The dataset is now consistent, analysis-ready, and suitable for exploratory analysis, KPI computation, and dashboard integration in Power BI or Python visualization libraries.
+│     └── location\_map.png
 
+│
 
+└── README.md
 
 
-PostgreSQL Analysis Workflow
-1. Database Setup
 
-Created PostgreSQL database: retail_data
+\## 🎯 Business Objective
 
-Imported cleaned CSV into table: sales
 
-Connected Jupyter Notebook ↔ PostgreSQL using SQLAlchemy + psycopg2
 
-2. SQL Analysis Performed
+To extract meaningful retail performance insights through customer transaction data, enabling data-driven decisions in:
 
-The analysis was fully executed inside PostgreSQL and covers:
 
-Revenue & transaction volume
 
-Average basket value
+Product assortment strategy
 
-Category revenue distribution
 
-Customer segmentation (attribute-based)
 
-Gender performance
+Customer segmentation \& marketing
 
-Geographic revenue mapping
 
-Seasonal performance trends
 
-3. Key SQL Outputs
+Seasonality planning
 
-Total Revenue: 233,081 USD
 
-ABV: 59.76 USD
 
-Top Categories: Clothing (104K), Accessories (74K)
+Revenue optimization
 
-Gender split: Male 68% of revenue
 
-Top Locations: Montana, Illinois, California
 
-Peak Season: Fall
+Regional sales focus
 
-4. Files Included
 
-PostgreSQL SQL scripts (queries)
 
-Cleaned dataset imported into the database
+\## 📦 Dataset Overview
 
-Final business report (PDF)
 
-5. Tools
 
-PostgreSQL
+The dataset contains 3,900 retail transactions across U.S. regions.
 
-SQL
 
-Python (connection + CSV import)
+
+Key Fields
+
+Column	Description
+
+customer\_id	Unique customer identifier
+
+age	Age of customer
+
+gender	Male / Female
+
+item\_purchased	Specific item bought
+
+category	Product category
+
+purchase\_amount\_usd	Transaction value
+
+location	U.S. state
+
+size	S, M, L
+
+color	Purchased item color
+
+season	Season of purchase
+
+review\_rating	Customer rating (1-5)
+
+subscription\_status	Yes/No
+
+shipping\_type	Shipping method
+
+discount\_applied	Yes/No
+
+promo\_code\_used	Yes/No
+
+previous\_purchases	Count of past purchases
+
+\## 🧹 1. Data Cleaning (Python)
+
+
+
+Python cleaning was performed using:
+
+
+
+pandas for data loading \& transformation
+
+
+
+missing value checks
+
+
+
+type corrections
+
+
+
+column renaming for SQL \& BI compatibility
+
+
+
+outlier review
+
+
+
+pre-export validation
+
+
+
+The cleaned dataset was saved for SQL \& Power BI under:
+
+
+
+data/retail\_customer\_behavior\_raw.csv
+
+
+
+
+
+Notebook:
+
+
+
+python/Retail\_Data\_Cleaning\_and\_Preparation.ipynb
+
+
+
+\## 🗄 2. Analytical Processing (PostgreSQL)
+
+
+
+The cleaned dataset was imported into PostgreSQL for structured querying and KPI analysis.
+
+
+
+SQL file:
+
+
+
+sql/Retail\_Customer\_Insights\_SQL\_Analysis.sql
+
+
+
+Key Queries Executed
+
+
+
+Total revenue
+
+
+
+Total transactions
+
+
+
+Average basket value (ABV)
+
+
+
+Revenue by category
+
+
+
+Transactions by gender
+
+
+
+Seasonality analysis
+
+
+
+Geographic transaction distribution
+
+
+
+Full SQL report:
+
+
+
+reports/Retail\_Customer\_Insights\_PostgreSQL\_Report.pdf
+
+
+
+\## 📈 3. Business Intelligence Dashboard (Power BI)
+
+
+
+Power BI transforms the SQL \& Python insights into an interactive visual analytics experience.
+
+
+
+Dashboard file:
+
+
+
+powerbi/Retail\_Customer\_Insights\_Dashboard.pbix
+
+
+
+\### 🔧 DAX Measures Used
+
+Total Revenue = SUM('retail\_data'\[purchase\_amount\_usd])
+
+
+
+Total Transactions = COUNTROWS('retail\_data')
+
+
+
+ABV = DIVIDE(\[Total Revenue], \[Total Transactions])
+
+
+
+\### 🖥 Dashboard Overview
+
+⭐ Executive KPI Cards
+
+
+
+Total Revenue
+
+
+
+Total Transactions
+
+
+
+Average Basket Value (ABV)
+
+
+
+⭐ Performance Visuals
+
+
+
+Revenue by category
+
+
+
+Transactions by gender
+
+
+
+Revenue by season
+
+
+
+Geographic sales distribution (map)
+
+
+
+\### 🖼 Dashboard Screenshots
+
+Component	Screenshot
+
+Full Dashboard	images/dashboard\_main.png
+
+KPI Section	images/kpi\_section.png
+
+Category Chart	images/category\_chart.png
+
+Gender Distribution	images/gender\_chart.png
+
+Seasonality	images/seasonality\_chart.png
+
+US Map	images/location\_map.png
+
+\## 📊 Summary of Insights
+
+✔ Clothing generates the highest total revenue
+
+
+
+The category consistently outperforms all others.
+
+
+
+✔ Male customers represent the majority of transactions
+
+
+
+Marketing campaigns can be gender-targeted accordingly.
+
+
+
+✔ Spring and Fall seasons deliver the strongest revenue
+
+
+
+Useful for inventory planning and seasonal promotions.
+
+
+
+✔ Geographic analysis shows strong performance across central and western states
+
+
+
+Helps identify priority expansion areas.
+
+
+
+✔ Customer spending is stable
+
+
+
+ABV remains constant, supporting predictable revenue forecasting.
+
+
+
+\## 🚀 Final Recommendations
+
+
+
+Increase inventory in top-performing categories (Clothing \& Accessories)
+
+
+
+Design gender-specific marketing flows (higher male conversion)
+
+
+
+Plan major promotional campaigns during Spring and Fall
+
+
+
+Prioritize logistics optimization for high-transaction states
+
+
+
+Leverage subscription programs to increase customer retention
+
+
+
+\## 🧪 Technologies Used
+
+
+
+Python (pandas, numpy) – Data cleaning
+
+
+
+PostgreSQL – Analytical queries
+
+
+
+Power BI – Interactive dashboard
+
+
+
+GitHub – Version control \& portfolio presentation
+
+
+
+\## 📬 Contact
+
+
+
+For questions or collaboration opportunities:
+
+
+
+Imane Rezgui
+
+Data Analyst | Business Analyst | Finance \& Retail Analytics
+
+Email: imane.rezgui.pro@gmail.com
+
+LinkedIn: www.linkedin.com/in/imane-rezgui
+
